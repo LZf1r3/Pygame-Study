@@ -12,6 +12,8 @@ ground_surface = pygame.image.load('UltimatePygameIntro-main\graphics\ground.png
 text_surface = test_font.render("My Game",False,"Black") # teste_font.render(text, AA, color) <AA means anti-aliasing, which is to smooth the edges of the text>
 snail_x_position = 800 # Defining the starting position of the snail
 
+player_surface = pygame.image.load("UltimatePygameIntro-main/graphics/player/player_walk_1.png").convert_alpha()
+
 while True: # Loop to keep the window's appearance 
     for event in pygame.event.get(): # Loop for checking input from the user in case they want to quit the game
         if event.type == pygame.QUIT: # Checking event
@@ -24,5 +26,6 @@ while True: # Loop to keep the window's appearance
     snail_x_position -=0.5 # Creating the animation on the snail sprite
     screen.blit(snail_surface,(snail_x_position,250)) # Creating the 
     if snail_x_position <= -100:snail_x_position = 800
+    screen.blit(player_surface,(80,200))
     pygame.display.update() # Updating window
     clock.tick(200) # limiting framerate to 120fps
