@@ -51,9 +51,7 @@ while True:  # Loop to keep the window's appearance
     screen.blit(ground_surface, (0, 300))
     pygame.draw.rect(screen,'pink',score_rectangle)
     pygame.draw.rect(screen,'pink',score_rectangle,10)
-    dacing = pygame.draw.line(screen,"pink",(0,0),pygame.mouse.get_pos(),10)
-    if snail_rectangle.collidepoint(dacing):
-        screen.blit(snail_surface,(600,200))
+    
     screen.blit(score_surface, score_rectangle)  # Defining the position of the text
 
     snail_rectangle.x -= 1
@@ -61,8 +59,8 @@ while True:  # Loop to keep the window's appearance
         snail_rectangle.x = 800
     screen.blit(snail_surface, snail_rectangle)
     screen.blit(player_surface, player_rectangle)
-    if snail_rectangle.colliderect(player_rectangle):print("Dead"),exit()
-   
+    if snail_rectangle.colliderect(player_rectangle):print("Dead")
+    
     # if player_rectangle.colliderect(snail_rectangle):
     #    print("Collision")
 
