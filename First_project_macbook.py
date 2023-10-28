@@ -42,7 +42,7 @@ while True:  # Loop to keep the window's appearance
     #        print("mouse up")
     # Screen.blit(surface escolhida, (posicao))
         if event.type == pygame.MOUSEMOTION:
-            if player_rectangle.collidepoint(event.pos):
+            if player_rectangle.collidepoint(event.pos):    
                 exit()
 
     screen.blit(sky_surface, (0, 0))
