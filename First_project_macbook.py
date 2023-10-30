@@ -18,12 +18,14 @@ snail_rectangle = snail_surface.get_rect(midbottom=(700, 300))
 # Importing sky picture for background
 sky_surface = pygame.image.load(
     '/Users/lucasfaiad/Documents/GitHub/Pygame-Study/UltimatePygameIntro-main/graphics/Sky.png').convert()
+
 # Importing ground picture for the ground
 ground_surface = pygame.image.load(
     '/Users/lucasfaiad/Documents/GitHub/Pygame-Study/UltimatePygameIntro-main/graphics/ground.png').convert()
-# teste_font.render(text, AA, color) <AA means anti-aliasing, which is to smooth the edges of the text>
-text_surface = test_font.render("My Game", False, "Black")
 
+# teste_font.render(text, AA, color) <AA means anti-aliasing, which is to smooth the edges of the text>
+score_surface = test_font.render("My Game", False, "Black")
+score_rectangle = score_surface.get_rect(center=(400,50))
 player_surface = pygame.image.load(
     "UltimatePygameIntro-main/graphics/player/player_walk_1.png").convert_alpha()
 # player_surface.ger_rect(topleft = (x,y))
@@ -44,18 +46,20 @@ while True:  # Loop to keep the window's appearance
         if event.type == pygame.MOUSEMOTION:
             if player_rectangle.collidepoint(event.pos):
                 exit()
-
     screen.blit(sky_surface, (0, 0))
     # Defining the position of the ground
     screen.blit(ground_surface, (0, 300))
-    screen.blit(text_surface, (300, 50))  # Defining the position of the text
+    pygame.draw.rect(screen,'pink',score_rectangle)
+    pygame.draw.rect(screen,'pink',score_rectangle,10)
+    screen.blit(score_surface, score_rectangle)  # Defining the position of the text
 
     snail_rectangle.x -= 1
     if snail_rectangle.x <= -100:
         snail_rectangle.x = 800
     screen.blit(snail_surface, snail_rectangle)
     screen.blit(player_surface, player_rectangle)
-
+    if snail_rectangle.colliderect(player_rectangle):print("Dead")
+    
     # if player_rectangle.colliderect(snail_rectangle):
     #    print("Collision")
 
