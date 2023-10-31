@@ -25,17 +25,24 @@ ground_surface = pygame.image.load(
 
 # teste_font.render(text, AA, color) <AA means anti-aliasing, which is to smooth the edges of the text>
 score_surface = test_font.render("My Game", False, "Black")
-score_rectangle = score_surface.get_rect(center=(400,50))
+score_rectangle = score_surface.get_rect(center=(400, 50))
 player_surface = pygame.image.load(
     "UltimatePygameIntro-main/graphics/player/player_walk_1.png").convert_alpha()
 # player_surface.ger_rect(topleft = (x,y))
 player_rectangle = player_surface.get_rect(midbottom=(80, 300))
+player_gravity = 0
 
 while True:  # Loop to keep the window's appearance
     for event in pygame.event.get():  # Loop for checking input from the user in case they want to quit the game
         if event.type == pygame.QUIT:  # Checking event
             pygame.quit()  # Quiting pygame
             exit()  # Ending every functioning code
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_SPACE:
+                player_gravity = -20
+
+        if event.type == pygame.KEYUP:
+            print("Key up")
     #    if event.type == pygame.MOUSEMOTION:
     #        print(event.pos)
     #    if event.type == pygame.MOUSEBUTTONDOWN:
@@ -45,21 +52,32 @@ while True:  # Loop to keep the window's appearance
     # Screen.blit(surface escolhida, (posicao))
         if event.type == pygame.MOUSEMOTION:
             if player_rectangle.collidepoint(event.pos):
-                exit()
+                if pygame.MOUSEBUTTONDOWN:
+                    player_gravity= 20
     screen.blit(sky_surface, (0, 0))
     # Defining the position of the ground
     screen.blit(ground_surface, (0, 300))
-    pygame.draw.rect(screen,'pink',score_rectangle)
-    pygame.draw.rect(screen,'pink',score_rectangle,10)
-    screen.blit(score_surface, score_rectangle)  # Defining the position of the text
+    pygame.draw.rect(screen, 'pink', score_rectangle)
+    pygame.draw.rect(screen, 'pink', score_rectangle, 10)
+    # Defining the position of the text
+    screen.blit(score_surface, score_rectangle)
 
     snail_rectangle.x -= 1
     if snail_rectangle.x <= -100:
         snail_rectangle.x = 800
     screen.blit(snail_surface, snail_rectangle)
     screen.blit(player_surface, player_rectangle)
-    if snail_rectangle.colliderect(player_rectangle):print("Dead")
-    
+    if snail_rectangle.colliderect(player_rectangle):
+        print("Dead")
+
+    # Player
+    player_gravity += 0.5
+    player_rectangle.y += player_gravity
+    screen.blit(player_surface, player_rectangle)
+
+    # keys = pygame.key.get_pressed()
+    # if keys[pygame.K_SPACE]:
+    #    print("Jump")
     # if player_rectangle.colliderect(snail_rectangle):
     #    print("Collision")
 
